@@ -14,12 +14,21 @@ export function inputReadlineValidation(text) {
       return operationFactory(splittedInput.length, 2, 'cat', 'cat contains two arguments', splittedInput[1])
     } case "add": {
       return operationFactory(splittedInput.length, 2, 'add', 'add contains two arguments', splittedInput[1])
-    } default: {
+    } case "pwd": {
+      return operationFactory(splittedInput.length, 1, 'pwd', 'pwd contains one arguments', splittedInput[1])
+    } case "rn": {
+      return operationFactory(splittedInput.length, 3, 'rn', 'rn contains three arguments', [splittedInput[1], splittedInput[2]])
+    } case "cp": {
+      return operationFactory(splittedInput.length, 3, 'cp', 'rn contains three arguments', [splittedInput[1], splittedInput[2]])
+    } case "mv": {
+      return operationFactory(splittedInput.length, 3, 'mv', 'mv contains three arguments', [splittedInput[1], splittedInput[2]])
+    } case "rm": {
+      return operationFactory(splittedInput.length, 2, 'rm', 'rm contains two arguments', splittedInput[1])
+    }
+    default: {
       return { error: 'command not found' }
     }
   }
-
-
 }
 
 function operationFactory(inputLength, operationLength, action, errorText, payload) {

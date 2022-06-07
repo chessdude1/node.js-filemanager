@@ -1,4 +1,4 @@
-import { dirname, parse, join } from 'path'
+import { dirname, parse, join, isAbsolute } from 'path'
 import { readdir } from 'node:fs/promises';
 import { fileURLToPath } from 'url'
 import { access } from 'fs/promises';
@@ -12,7 +12,24 @@ class Navigation {
     console.log(`current directory ${this._currentDirectory}`)
   }
 
-  async cd(payload) { //TODO: can be absolute
+  pwd() {
+    console.log(`current directory ${this._currentDirectory}`)
+  }
+
+  async cd(payload) {
+    if (isAbsolute(payload)) {
+      try {
+        console.log(payload)
+        await access(payload)
+        this._currentDirectory = payload
+
+        console.log(`current directory ${this._currentDirectory}`)
+      } catch {
+        console.log('directory doesnt exist')
+      }
+      return
+    }
+
     try {
       const tryToCdDirectory = await join(this._currentDirectory, payload)
       await access(tryToCdDirectory)

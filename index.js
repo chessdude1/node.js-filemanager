@@ -36,12 +36,33 @@ function mainStream() {
         navigation.ls()
         return
       }
+      case "pwd": {
+        navigation.pwd()
+        return
+      }
       case 'cat': {
         operationsWithFiles.cat(payload)
         return
       }
       case 'add': {
         operationsWithFiles.add(payload)
+        return
+      }
+      case 'rn': {
+        operationsWithFiles.rn(payload)
+        return
+      }
+      case 'cp': {
+        operationsWithFiles.cp(payload)
+        return
+      }
+      case 'mv': {
+        operationsWithFiles.mv(payload)
+        return
+      }
+      case 'rm': {
+        operationsWithFiles.rm(payload)
+        return
       }
     }
   })
