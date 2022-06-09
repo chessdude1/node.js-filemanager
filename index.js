@@ -3,6 +3,9 @@ import { inputReadlineValidation } from './utils.js'
 import { navigation } from './navigation.js'
 import { operationsWithFiles } from "./operationsWithFiles.js";
 
+
+import { operationSystemInfo } from "./operationSystemInfo.js";
+
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -62,6 +65,26 @@ function mainStream() {
       }
       case 'rm': {
         operationsWithFiles.rm(payload)
+        return
+      }
+      case '--EOL': {
+        operationSystemInfo.eol()
+        return
+      }
+      case '--cpus': {
+        operationSystemInfo.cpus()
+        return
+      }
+      case '--homedir': {
+        operationSystemInfo.homedir()
+        return
+      }
+      case "--username": {
+        operationSystemInfo.userInfo()
+        return
+      }
+      case "--architecture": {
+        operationSystemInfo.architecture()
         return
       }
     }

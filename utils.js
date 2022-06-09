@@ -3,6 +3,26 @@ export function inputReadlineValidation(text) {
 
   const splittedInput = text.split(' ');
 
+
+  switch (splittedInput[1]) {
+    case '--EOL': {
+      return operationFactory(splittedInput.length, 2, '--EOL', '--EOL should be used with os', splittedInput[1], 'os', splittedInput[0])
+    }
+    case '--cpus': {
+      return operationFactory(splittedInput.length, 2, '--cpus', '--cpus should be used with os', splittedInput[1], 'os', splittedInput[0])
+    }
+    case '--homedir': {
+      return operationFactory(splittedInput.length, 2, '--homedir', '--homedir should be used with os', splittedInput[1], 'os', splittedInput[0])
+    }
+    case '--username': {
+      return operationFactory(splittedInput.length, 2, '--username', '--username should be used with os', splittedInput[1], 'os', splittedInput[0])
+    }
+    case '--architecture': {
+      return operationFactory(splittedInput.length, 2, '--architecture', '--architecture should be used with os', splittedInput[1], 'os', splittedInput[0])
+    }
+  }
+
+
   switch (splittedInput[0]) {
     case 'up': {
       return operationFactory(splittedInput.length, 1, 'up', 'up contains one argument', splittedInput[1])
@@ -25,13 +45,27 @@ export function inputReadlineValidation(text) {
     } case "rm": {
       return operationFactory(splittedInput.length, 2, 'rm', 'rm contains two arguments', splittedInput[1])
     }
+
     default: {
       return { error: 'command not found' }
     }
   }
 }
 
-function operationFactory(inputLength, operationLength, action, errorText, payload) {
+function operationFactory(inputLength, operationLength, action, errorText, payload, firstWord = false, firstWordPayload = '') {
+  if (inputLength !== operationLength) {
+    return { error: errorText }
+  }
+
+  if (firstWord && firstWord !== firstWordPayload) {
+    return { error: errorText }
+  }
+
+  return { action: action, payload, }
+}
+
+
+function operationFactoryTwoWords(inputLength, operationLength, action, errorText, payload) {
   if (inputLength !== operationLength) {
     return { error: errorText }
   }
