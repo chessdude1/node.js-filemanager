@@ -4,10 +4,6 @@ import { arch } from 'process'
 
 class OperationSystemInfo {
 
-  constructor(navigation) {
-    this.navigation = navigation
-  }
-
   eol() {
     EOL.length === 2 ? console.log('Windows') : console.log('POSIX');
   }

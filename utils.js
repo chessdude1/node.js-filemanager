@@ -44,6 +44,12 @@ export function inputReadlineValidation(text) {
       return operationFactory(splittedInput.length, 3, 'mv', 'mv contains three arguments', [splittedInput[1], splittedInput[2]])
     } case "rm": {
       return operationFactory(splittedInput.length, 2, 'rm', 'rm contains two arguments', splittedInput[1])
+    } case "hash": {
+      return operationFactory(splittedInput.length, 2, 'hash', 'hash contains two arguments', splittedInput[1])
+    } case "compress": {
+      return operationFactory(splittedInput.length, 3, 'compress', 'compress contains three arguments', [splittedInput[1], splittedInput[2]])
+    } case "decompress": {
+      return operationFactory(splittedInput.length, 3, 'decompress', 'decompress contains three arguments', [splittedInput[1], splittedInput[2]])
     }
 
     default: {
@@ -61,13 +67,5 @@ function operationFactory(inputLength, operationLength, action, errorText, paylo
     return { error: errorText }
   }
 
-  return { action: action, payload, }
-}
-
-
-function operationFactoryTwoWords(inputLength, operationLength, action, errorText, payload) {
-  if (inputLength !== operationLength) {
-    return { error: errorText }
-  }
   return { action: action, payload, }
 }

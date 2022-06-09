@@ -5,6 +5,7 @@ import { operationsWithFiles } from "./operationsWithFiles.js";
 
 
 import { operationSystemInfo } from "./operationSystemInfo.js";
+import { fileTransformation } from "./fileTransformation.js";
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -85,6 +86,18 @@ function mainStream() {
       }
       case "--architecture": {
         operationSystemInfo.architecture()
+        return
+      }
+      case "hash": {
+        fileTransformation.hash(payload)
+        return
+      }
+      case "compress": {
+        fileTransformation.compress(payload)
+        return
+      }
+      case "decompress": {
+        fileTransformation.decompress(payload)
         return
       }
     }
