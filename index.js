@@ -14,6 +14,15 @@ const rl = readline.createInterface({
 
 function mainStream() {
 
+  const userName = process.argv[2].split('=')[1]
+
+  rl.on('close', () => {
+    console.log(`Thank you for using File Manager, ${userName}`);
+  });
+
+  console.log(`Welcome to the File Manager, ${userName}!`)
+
+  navigation.pwd()
 
   rl.on('line', async (line) => {
     const inputAfterValidation = inputReadlineValidation(line)
@@ -24,86 +33,92 @@ function mainStream() {
       return
     }
 
+
     const { payload, action } = inputReadlineValidation(line)
 
 
     switch (action) {
       case 'up': {
-        navigation.up()
-        return
+        await navigation.up()
+        break
       }
       case 'cd': {
         await navigation.cd(payload)
-        return
+        break
       }
       case 'ls': {
-        navigation.ls()
-        return
+        await navigation.ls()
+        break
       }
       case "pwd": {
-        navigation.pwd()
-        return
+        await navigation.pwd()
+        break
       }
       case 'cat': {
-        operationsWithFiles.cat(payload)
-        return
+        await operationsWithFiles.cat(payload)
+        break
       }
       case 'add': {
-        operationsWithFiles.add(payload)
-        return
+        await operationsWithFiles.add(payload)
+        break
       }
       case 'rn': {
-        operationsWithFiles.rn(payload)
-        return
+        await operationsWithFiles.rn(payload)
+        break
       }
       case 'cp': {
-        operationsWithFiles.cp(payload)
-        return
+        await operationsWithFiles.cp(payload)
+        break
       }
       case 'mv': {
-        operationsWithFiles.mv(payload)
-        return
+        await operationsWithFiles.mv(payload)
+        break
       }
       case 'rm': {
-        operationsWithFiles.rm(payload)
-        return
+        await operationsWithFiles.rm(payload)
+        break
       }
       case '--EOL': {
-        operationSystemInfo.eol()
-        return
+        await operationSystemInfo.eol()
+        break
       }
       case '--cpus': {
-        operationSystemInfo.cpus()
-        return
+        await operationSystemInfo.cpus()
+        break
       }
       case '--homedir': {
-        operationSystemInfo.homedir()
-        return
+        await operationSystemInfo.homedir()
+        break
       }
       case "--username": {
-        operationSystemInfo.userInfo()
-        return
+        await operationSystemInfo.userInfo()
+        break
       }
       case "--architecture": {
-        operationSystemInfo.architecture()
-        return
+        await operationSystemInfo.architecture()
+        break
       }
       case "hash": {
-        fileTransformation.hash(payload)
-        return
+        await fileTransformation.hash(payload)
+        break
       }
       case "compress": {
-        fileTransformation.compress(payload)
-        return
+        await fileTransformation.compress(payload)
+        break
       }
       case "decompress": {
-        fileTransformation.decompress(payload)
-        return
+        await fileTransformation.decompress(payload)
+        break
+      }
+      case "exit": {
+        console.log(`Thank you for using File Manager, ${userName}`);
+        process.exit(1);
       }
     }
+
+
+    navigation.pwd()
   })
-
-
 }
 
 mainStream()

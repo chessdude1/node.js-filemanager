@@ -9,10 +9,10 @@ class OperationsWithFiles {
     this.navigation = navigation
   }
 
-  cat(directory) {
+  async cat(directory) {
     readFile(directory, "utf8", (error, data) => {
       if (error) {
-        console.log('type correct absolute path')
+        console.log('Operation failed')
         return
       }
       console.log(data)
@@ -26,11 +26,9 @@ class OperationsWithFiles {
 
     appendFile(fileDirectory, '', (err) => {
       if (err) {
-        console.log('ooops smth gets wrong')
+        console.log('Operation failed')
         return
       }
-
-      console.log(`${fileName} succesfully created in ${fileDirectory}`)
     })
   }
 
@@ -40,46 +38,41 @@ class OperationsWithFiles {
 
     rename(pathAndName[0], newFileDirectory, err => {
       if (err) {
-        console.log('type correct absolute paths')
+        console.log('Operation failed')
         return
       }
 
-      console.log('file succesfully renamed')
     })
   }
 
-  cp(paths) {
+  async cp(paths) {
     copyFile(paths[0], paths[1], err => {
       if (err) {
-        console.log('type correct absolute paths')
+        console.log('Operation failed')
         return
       }
     });
 
-    console.log('files succesfully copied')
   }
 
-  mv(paths) {
+  async mv(paths) {
     copyFile(paths[0], paths[1], err => {
       if (err) {
-        console.log('type correct absolute paths')
+        console.log('Operation failed')
         return
       }
     });
 
     this.rm(paths[0])
-
-    console.log('files successfully moved')
   }
 
-  rm(path) {
+  async rm(path) {
     unlink(path, (err) => {
       if (err) {
-        console.log('type correct absolute paths')
+        console.log('Operation failed')
         return
       }
     })
-    console.log('file successfully deleted')
   }
 }
 

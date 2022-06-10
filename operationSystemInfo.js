@@ -4,23 +4,23 @@ import { arch } from 'process'
 
 class OperationSystemInfo {
 
-  eol() {
+  async eol() {
     EOL.length === 2 ? console.log('Windows') : console.log('POSIX');
   }
 
-  cpus() {
-    console.log(cpus())
+  async cpus() {
+    console.log(`Number of cores: ${cpus().length} model: ${cpus()[0].model} speed of every core: ${cpus().map(cpu => { return `${cpu.speed / 1000} GHz` }).join('; ')} `)
   }
 
-  homedir() {
+  async homedir() {
     console.log(homedir())
   }
 
-  userInfo() {
+  async userInfo() {
     console.log(userInfo().username)
   }
 
-  architecture() {
+  async architecture() {
     console.log(arch)
   }
 

@@ -1,58 +1,73 @@
-import { createReadStream, appendFile, createWriteStream } from 'fs'
+import { createReadStream, appendFile, createWriteStream, existsSync } from 'fs'
 import { createBrotliCompress, createBrotliDecompress } from 'zlib'
 import { readFile } from 'fs/promises';
 import { createHash } from 'crypto'
+
 
 class FileTransformation {
 
   async hash(path) {
     try {
       const promise = await readFile(path, err => {
-        if (err) console.log('No such file or directory')
+        if (err) console.log('Operation failed')
       })
       let hash = createHash('sha256').update(promise).digest('hex');
       console.log(hash)
-    } catch (e) {
-      console.log('No such file or directory')
+    } catch {
+      console.log('Operation failed')
     }
   }
 
-  compress(paths) {
-    try {
-      const readStream = createReadStream(paths[0]);
+  async compress(paths) {
 
-      appendFile(paths[1], '', (err) => {
-        if (err) console.log(err)
-      })
 
-      const writeStream = createWriteStream(paths[1]);
-      const brotliCompress = createBrotliCompress();
-
-      readStream.pipe(brotliCompress).pipe(writeStream);
-    } catch (e) {
-      console.log(e)
+    if (!existsSync(paths[0])) {
+      console.log('Operation failed')
+      return
     }
+
+    const readStream = createReadStream(paths[0], err => {
+      if (err) console.log('Operation failed')
+      return
+    });
+
+    await appendFile(paths[1], '', (err) => {
+      if (err) console.log('Operation failed')
+      return
+    })
+
+    const writeStream = createWriteStream(paths[1], err => {
+      if (err) console.log('Operation failed')
+      return
+    });
+
+    const brotliCompress = createBrotliCompress();
+    readStream.pipe(brotliCompress).pipe(writeStream);
+
 
   }
 
-  decompress(paths) {
+  async decompress(paths) {
+
+    if (!existsSync(paths[0])) {
+      console.log('Operation failed')
+      return
+    }
+
     try {
       const brotliDecompress = createBrotliDecompress();
 
       appendFile(paths[1], '', (err) => {
-        if (err) console.log(err)
+        if (err) console.log('Operation failed')
       })
 
       const readStreamDecompress = createReadStream(paths[0]);
       const writeStreamDecompress = createWriteStream(paths[1]);
       readStreamDecompress.pipe(brotliDecompress).pipe(writeStreamDecompress);
-    } catch (e) {
-      console.log(e)
+    } catch {
+      console.log('Operation failed')
     }
-
   }
-
-
 
 }
 
