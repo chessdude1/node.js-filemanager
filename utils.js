@@ -67,5 +67,5 @@ function operationFactory(inputLength, operationLength, action, payload, firstWo
     return { error: 'Invalid input' }
   }
 
-  return { action: action, payload, }
+  return { action, payload, }
 }

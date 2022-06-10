@@ -33,9 +33,7 @@ function mainStream() {
       return
     }
 
-
     const { payload, action } = inputReadlineValidation(line)
-
 
     switch (action) {
       case 'up': {
@@ -112,10 +110,9 @@ function mainStream() {
       }
       case "exit": {
         console.log(`Thank you for using File Manager, ${userName}`);
-        process.exit(1);
+        process.exit();
       }
     }
-
 
     navigation.pwd()
   })
