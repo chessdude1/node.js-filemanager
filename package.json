@@ -1,0 +1,21 @@
+{
+  "name": "node.js-filemanager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js ",
+  "type" : "module",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chessdude1/node.js-filemanager.git"
+  },
+  "author": "chessdude1",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chessdude1/node.js-filemanager/issues"
+  },
+  "homepage": "https://github.com/chessdude1/node.js-filemanager#readme"
+}
